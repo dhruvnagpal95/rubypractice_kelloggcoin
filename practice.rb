@@ -17,6 +17,9 @@ blockchain = [
   { "from_user" => "anthony", "to_user" => "evan", "amount" => 1750 }
 ]
 
+
+  
+
 # Write code below that returns the number of KelloggCoin that each user has in their 
 # KelloggCoin "wallet".
 
@@ -27,3 +30,40 @@ blockchain = [
 # Anthony's KelloggCoin balance is 2650
 
 # 👇👇👇 Your code HERE 👇👇👇
+index = 0
+names = Array.new
+loop do
+if index == blockchain.length
+  break
+end
+names.push(blockchain[index]["to_user"])
+index = index+1
+end
+
+# puts names
+
+names_dedup = names.uniq
+# puts names_dedup
+
+index2 = 0
+loop do
+if index2 == names_dedup.length
+  break
+end
+index3 = 0
+live_sum = 0
+loop do 
+  if index3 == blockchain.length
+    break
+  end
+  if blockchain[index3]["to_user"] == names_dedup[index2]
+    live_sum = live_sum + blockchain[index3]["amount"].to_i
+  end
+  if blockchain[index3]["from_user"] == names_dedup[index2]
+    live_sum = live_sum - blockchain[index3]["amount"].to_i
+  end
+  index3 = index3+1
+end
+puts "#{names_dedup[index2].capitalize}"+"'s"+ " KelloggCoin balance is "+"#{live_sum}"
+index2 = index2+1
+end
